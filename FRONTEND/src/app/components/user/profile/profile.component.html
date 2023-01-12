@@ -1,0 +1,14 @@
+<div *ngIf="(userInformation$ | async) as userInformation" class="data_container">
+  <div *ngIf="userInformation !== null">
+    <p class="display">First name: {{userInformation.firstName}}</p>
+    <p class="display">Name: {{userInformation.name}}</p>
+    <p class="display">Email: {{userInformation.email}}</p>
+    <div class="display">
+      <p>Addresses:</p>
+      <div *ngFor="let address of userInformation.addresses">
+        <p><span>{{address.type}}:</span> {{address.streetNumber}} {{address.street}}, {{address.zip}} {{address.city}}, {{address.state}}</p>
+      </div>
+    </div>
+    <p class="display">Phone: {{userInformation.phone | phone}}</p>
+  </div>
+</div>

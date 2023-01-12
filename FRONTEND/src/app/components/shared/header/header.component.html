@@ -1,0 +1,40 @@
+<header class="header">
+  <div *ngIf="!storageService.isLoggedIn(); else connected">
+    <div class="router_group">
+      <a class="link" routerLink="/auth/login" routerLinkActive="link--active">Login</a>
+      <a class="link" routerLink="/auth/register" routerLinkActive="link--active">Register</a>
+    </div>
+  </div>
+  <ng-template #connected>
+    <div class="router_group">
+      <a class="link" routerLink="/" routerLinkActive="link--active" [routerLinkActiveOptions]="{exact: true}">Products</a>
+      <a *ngIf="storageService.hasRole('CLIENT')"
+         class="link"
+         routerLink="/cart"
+         routerLinkActive="link--active">
+        Cart
+        <span *ngIf="cartCount$ | async as count">({{count}})</span>
+      </a>
+      <a *ngIf="storageService.hasRole('SELLER')"
+         class="link"
+         routerLink="/manage/{{storageService.getManufacturerId()}}/products"
+         routerLinkActive="link--active"
+         [routerLinkActiveOptions]="{exact: true}">Manage</a>
+
+      <a *ngIf="storageService.hasRole('ADMIN')"
+         class="link"
+         routerLink="/dashboard"
+         routerLinkActive="link--active"
+         [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+    </div>
+    <div class="router_group">
+      <a *ngIf="storageService.hasRole('CLIENT')"
+         class="link"
+         routerLink="/user/{{storageService.getUserId()}}"
+         routerLinkActive="link--active">
+        Profile
+      </a>
+      <a class="link" (click)="logout($event)" href="">Logout</a>
+    </div>
+  </ng-template>
+</header>

@@ -1,0 +1,21 @@
+<div *ngIf="cartCount$ | async as count; else noProducts" class="cart">
+  <div class="details_wrapper">
+    <div class="details" *ngFor="let product of products$ | async">
+      <div>
+        <img class="image" [src]="product.images[0].url" alt="rip">
+      </div>
+      <div class="info">
+        <p>Name: {{ product.name }} </p>
+        <p>Price: {{ product.price| number:'':'fr' }}€</p>
+        <button class="remove" (click)="removeFromCart(product)">Remove</button>
+      </div>
+    </div>
+  </div>
+  <div class="summary">
+    <p>Number of products: {{ count }}</p>
+    <p>Price: {{ (totalPrice$ | async) | number:'':'fr'}}€</p>
+  </div>
+</div>
+<ng-template #noProducts>
+  <a routerLink="/" class="link">There is no product in your cart <br>Click here to go to the product page</a>
+</ng-template>

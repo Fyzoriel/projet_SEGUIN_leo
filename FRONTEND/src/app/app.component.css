@@ -1,0 +1,10 @@
+.header_container {
+  width: 100%;
+}
+
+.footer_container {
+  display: flex;
+  min-height: 80px;
+  margin-top: auto;
+  width: 100%;
+}

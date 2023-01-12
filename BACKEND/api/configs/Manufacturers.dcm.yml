@@ -1,0 +1,32 @@
+Manufacturers:
+    type: entity
+    table: manufacturers
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        validated:
+            type: boolean
+            nullable: false
+            options:
+                default: false
+    oneToMany:
+        users:
+            targetEntity: Users
+            mappedBy: manufacturer
+        products:
+            targetEntity: Products
+            mappedBy: manufacturer
+    lifecycleCallbacks: {  }

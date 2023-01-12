@@ -1,0 +1,37 @@
+Models:
+    type: entity
+    table: models
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+    manyToMany:
+        product:
+            targetEntity: Products
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: model
+            joinTable:
+                name: model_product
+                joinColumns:
+                    -
+                        name: model_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: product_id
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks: {  }

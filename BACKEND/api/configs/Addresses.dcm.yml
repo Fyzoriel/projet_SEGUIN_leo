@@ -1,0 +1,71 @@
+Addresses:
+    type: entity
+    table: addresses
+    indexes:
+        IDX_6FCA7516A76ED395:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        state:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        zip:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        street:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        streetNumber:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+            column: street_number
+        type:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+    manyToOne:
+        user:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: addresses
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

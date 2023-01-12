@@ -1,0 +1,23 @@
+<div class="products_container">
+  <div *ngFor="let product of products$ | async; trackBy: trackByProductId" class="products_card">
+    <img
+      *ngIf="product.images !== undefined && product.images.length > 0"
+      src="{{ product.images[0].url }}"
+      alt="Preview image"
+      class="preview_image">
+
+    <p>Name: {{ product.name }}</p>
+    <p>Price: {{ product.price | number:'':'fr'}}€</p>
+    <p>Type: {{ product.type.name }}</p>
+    <p>Model:
+      <span *ngFor="let model of product.models" class="badge">
+        {{ model.name }}
+      </span>
+    </p>
+    <p>Activate product:</p>
+    <div class="switch" [attr.data-is-enabled]="product.enable" (click)="onClick(product.id)">
+      <div class="slider"></div>
+    </div>
+  </div>
+</div>
+

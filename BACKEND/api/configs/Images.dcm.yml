@@ -1,0 +1,34 @@
+Images:
+    type: entity
+    table: images
+    indexes:
+        IDX_E01FBE6A4584665A:
+            columns:
+                - product_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        url:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+    manyToOne:
+        product:
+            targetEntity: Products
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: images
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

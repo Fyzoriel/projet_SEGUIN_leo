@@ -1,0 +1,26 @@
+<form class="form" [formGroup]="userDataForm" (ngSubmit)="onSubmit()" novalidate>
+  <p>Login</p>
+  <div class="errors" *ngIf="loginError">
+    <p class="error">{{ loginError }}</p>
+  </div>
+
+  <div class="input_container">
+    <div class="errors" *ngIf="userDataForm.get('email')?.invalid && (userDataForm.get('email')?.touched || userDataForm.get('email')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('email')?.errors?.['required']">Email is required</p>
+      <p class="error" *ngIf="userDataForm.get('email')?.errors?.['email']">Email is not valid</p>
+    </div>
+    <label for="email">Email</label>
+    <input id="email" class="input" type="text" formControlName="email"/>
+  </div>
+
+  <div class="input_container">
+    <div class="errors" *ngIf="userDataForm.get('passphrase')?.invalid && (userDataForm.get('passphrase')?.touched || userDataForm.get('passphrase')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('passphrase')?.errors?.['required']">Pass phrase is required</p>
+      <p class="error" *ngIf="userDataForm.get('passphrase')?.errors?.['minlength']">Pass phrase must be at least 8 characters long</p>
+    </div>
+    <label for="passphrase">Passphrase</label>
+    <input id="passphrase" class="input" type="password" formControlName="passphrase">
+  </div>
+
+  <input class="submit" type="submit" [disabled]="!userDataForm.valid"/>
+</form>

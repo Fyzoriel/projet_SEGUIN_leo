@@ -1,0 +1,90 @@
+Products:
+    type: entity
+    table: products
+    indexes:
+        IDX_B3BA5A5AC54C8C93:
+            columns:
+                - type_id
+        IDX_B3BA5A5AA23B42D:
+            columns:
+                - manufacturer_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        height:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+        length:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+        maxSpeed:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            column: max_speed
+        capacity:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        price:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+        enabled:
+            type: boolean
+            nullable: false
+            options:
+                default: true
+    manyToOne:
+        type:
+            targetEntity: Types
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: products
+            joinColumns:
+                type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        manufacturer:
+            targetEntity: Manufacturers
+            cascade: {  }
+            fetch: LAZY
+            inversedBy: products
+            joinColumns:
+                manufacturer_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        images:
+            targetEntity: Images
+            mappedBy: product
+    manyToMany:
+        model:
+            targetEntity: Models
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: product
+            inversedBy: products
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

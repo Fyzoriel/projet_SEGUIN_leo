@@ -1,0 +1,64 @@
+<form class="form" [formGroup]="userDataForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <div class="errors" *ngIf="registerError">
+    <p class="error">{{ registerError }}</p>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="firstname">First name</label>
+    <div class="errors" *ngIf="userDataForm.get('firstName')?.invalid && (userDataForm.get('firstName')?.touched || userDataForm.get('firstName')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('firstName')?.errors?.['required']">First name is required</p>
+    </div>
+    <input id="firstname" class="input" type="text" formControlName="firstName"/>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="name">Name</label>
+    <div class="errors" *ngIf="userDataForm.get('name')?.invalid && (userDataForm.get('name')?.touched || userDataForm.get('name')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('name')?.errors?.['required']">Name is required</p>
+    </div>
+    <input id="name" class="input" type="text" formControlName="name"/>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="email">Email</label>
+    <div class="errors" *ngIf="userDataForm.get('email')?.invalid && (userDataForm.get('email')?.touched || userDataForm.get('email')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('email')?.errors?.['required']">Email is required</p>
+      <p class="error" *ngIf="userDataForm.get('email')?.errors?.['email']">Email is not valid</p>
+    </div>
+    <input id="email" class="input" type="text" formControlName="email"/>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="manufacturer">Manufacturer</label>
+    <div class="errors" *ngIf="userDataForm.get('manufacturer')?.invalid && (userDataForm.get('manufacturer')?.touched || userDataForm.get('manufacturer')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('manufacturer')?.errors?.['required']">Manufacturer is required</p>
+    </div>
+    <ng-select id="manufacturer" class="manufacturer_select" [items]="manufacturers$ | async" bindLabel="name" [hideSelected]="true" [addTag]="addManufacturer" formControlName="manufacturer">
+
+    </ng-select>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="passphrase">Passphrase</label>
+    <div class="errors" *ngIf="userDataForm.get('passphrase')?.invalid && (userDataForm.get('passphrase')?.touched || userDataForm.get('passphrase')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('passphrase')?.errors?.['required']">Pass phrase is required</p>
+      <p class="error" *ngIf="userDataForm.get('passphrase')?.errors?.['minlength']">Pass phrase must be at least 8 characters long</p>
+    </div>
+    <input id="passphrase" class="input" type="password" formControlName="passphrase">
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="passphraseConfirm">Confirm passphrase</label>
+    <div class="errors" *ngIf="userDataForm.get('confirmPassphrase')?.invalid && (userDataForm.get('confirmPassphrase')?.touched || userDataForm.get('confirmPassphrase')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('confirmPassphrase')?.errors?.['required']">Confirm pass phrase is required</p>
+      <p class="error" *ngIf="userDataForm.get('confirmPassphrase')?.errors?.['minlength']">Confirm pass phrase must be at least 8 characters long</p>
+      <p class="error" *ngIf="userDataForm.get('confirmPassphrase')?.errors?.['matching']">Pass phrases are not equivalent</p>
+    </div>
+    <input id="passphraseConfirm" class="input" type="password" formControlName="confirmPassphrase">
+  </div>
+
+  <input class="submit" type="submit" [disabled]="!userDataForm.valid"/>
+</form>
+
+

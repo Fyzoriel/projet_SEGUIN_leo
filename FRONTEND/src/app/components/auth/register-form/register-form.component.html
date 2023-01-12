@@ -1,0 +1,15 @@
+<div class="form_wrapper">
+
+  <p>Register</p>
+
+  <div class="choice">
+    <p>Client</p>
+    <div class="switch" [attr.data-is-enabled]="isClientRegister" (click)="onClick()">
+      <div class="slider"></div>
+    </div>
+    <p>Seller</p>
+  </div>
+
+  <app-client *ngIf="isClientRegister"></app-client>
+  <app-seller *ngIf="!isClientRegister"></app-seller>
+</div>

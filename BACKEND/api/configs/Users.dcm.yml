@@ -1,0 +1,75 @@
+Users:
+    type: entity
+    table: users
+    indexes:
+        IDX_1483A5E9A23B42D:
+            columns:
+                - manufacturer_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        firstName:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+            column: first_name
+        name:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        passphrase:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        role:
+            type: string
+            nullable: false
+            length: null
+            options:
+                fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: null
+            options:
+                fixed: false
+        validated:
+            type: boolean
+            nullable: false
+            options:
+                default: false
+    manyToOne:
+        manufacturer:
+            targetEntity: Manufacturers
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: products
+            joinColumns:
+                manufacturer_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        addresses:
+            targetEntity: Addresses
+            mappedBy: user
+    lifecycleCallbacks: {  }

@@ -1,0 +1,137 @@
+<form class="form" [formGroup]="userDataForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <div class="errors" *ngIf="registerError">
+    <p class="error">{{ registerError }}</p>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="firstname">First name</label>
+    <div class="errors" *ngIf="userDataForm.get('firstName')?.invalid && (userDataForm.get('firstName')?.touched || userDataForm.get('firstName')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('firstName')?.errors?.['required']">First name is required</p>
+    </div>
+    <input id="firstname" class="input" type="text" formControlName="firstName"/>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="name">Name</label>
+    <div class="errors" *ngIf="userDataForm.get('name')?.invalid && (userDataForm.get('name')?.touched || userDataForm.get('name')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('name')?.errors?.['required']">Name is required</p>
+    </div>
+    <input id="name" class="input" type="text" formControlName="name"/>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="email">Email</label>
+    <div class="errors" *ngIf="userDataForm.get('email')?.invalid && (userDataForm.get('email')?.touched || userDataForm.get('email')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('email')?.errors?.['required']">Email is required</p>
+      <p class="error" *ngIf="userDataForm.get('email')?.errors?.['email']">Email is not valid</p>
+    </div>
+    <input id="email" class="input" type="text" formControlName="email"/>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="phone">Phone</label>
+    <div class="errors" *ngIf="userDataForm.get('phone')?.invalid && (userDataForm.get('phone')?.touched || userDataForm.get('phone')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('phone')?.errors?.['required']">Phone is required</p>
+      <p class="error" *ngIf="userDataForm.get('phone')?.errors?.['pattern']">Phone is not valid</p>
+    </div>
+    <input id="phone" class="input" type="text" formControlName="phone"/>
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="passphrase">Passphrase</label>
+    <div class="errors" *ngIf="userDataForm.get('passphrase')?.invalid && (userDataForm.get('passphrase')?.touched || userDataForm.get('passphrase')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('passphrase')?.errors?.['required']">Pass phrase is required</p>
+      <p class="error" *ngIf="userDataForm.get('passphrase')?.errors?.['minlength']">Pass phrase must be at least 8 characters long</p>
+    </div>
+    <input id="passphrase" class="input" type="password" formControlName="passphrase">
+  </div>
+
+  <div class="input_container">
+    <label class="label" for="passphraseConfirm">Confirm passphrase</label>
+    <div class="errors" *ngIf="userDataForm.get('confirmPassphrase')?.invalid && (userDataForm.get('confirmPassphrase')?.touched || userDataForm.get('confirmPassphrase')?.dirty)">
+      <p class="error" *ngIf="userDataForm.get('confirmPassphrase')?.errors?.['required']">Confirm pass phrase is required</p>
+      <p class="error" *ngIf="userDataForm.get('confirmPassphrase')?.errors?.['minlength']">Confirm pass phrase must be at least 8 characters long</p>
+      <p class="error" *ngIf="userDataForm.get('confirmPassphrase')?.errors?.['matching']">Pass phrases are not equivalent</p>
+    </div>
+    <input id="passphraseConfirm" class="input" type="password" formControlName="confirmPassphrase">
+  </div>
+
+  <div class="addresses input_container">
+
+    <div class="address_section">
+      <p>Addresses:</p>
+      <button class="address_button" (click)="addAddress()">Add</button>
+    </div>
+
+    <div class="input_container address_border" formArrayName="addresses" *ngFor="let control of getAddressesControls(); let index = index">
+      <p>Address {{index + 1}}</p>
+      <div [formGroupName]="index">
+        <div>
+          <div class="errors" *ngIf="control.get('name')?.invalid && (control.get('name')?.touched || control.get('name')?.dirty)">
+            <p class="error" *ngIf="control.get('name')?.errors?.['required']">Name is required</p>
+          </div>
+          <label class="label" for="{{index}}_name">Name</label>
+          <input id="{{index}}_name" class="input" type="text" formControlName="name"/>
+        </div>
+
+        <div>
+          <label class="label" for="{{index}}_type">Type</label>
+          <div class="errors" *ngIf="control.get('type')?.invalid && (control.get('type')?.touched || control.get('type')?.dirty)">
+            <p class="error" *ngIf="control.get('type')?.errors?.['required']">Type is required</p>
+            <p class="error" *ngIf="control.get('type')?.errors?.['valueInType']">Value need to be BILLING or DELIVERY</p>
+          </div>
+          <ng-select id="{{index}}_type" class="type_select" formControlName="type" [searchable]="false">
+            <ng-option value="BILLING">BILLING</ng-option>
+            <ng-option value="DELIVERY">DELIVERY</ng-option>
+          </ng-select>
+        </div>
+
+        <div>
+          <label class="label" for="{{index}}_streetNumber">Street number</label>
+          <div class="errors" *ngIf="control.get('streetNumber')?.invalid && (control.get('streetNumber')?.touched || control.get('streetNumber')?.dirty)">
+            <p class="error" *ngIf="control.get('streetNumber')?.errors?.['required']">Street number is required</p>
+          </div>
+          <input id="{{index}}_streetNumber" class="input" type="text" formControlName="streetNumber"/>
+        </div>
+
+        <div>
+          <label class="label" for="{{index}}_street">Street</label>
+          <div class="errors" *ngIf="control.get('street')?.invalid && (control.get('street')?.touched || control.get('street')?.dirty)">
+            <p class="error" *ngIf="control.get('street')?.errors?.['required']">Street is required</p>
+          </div>
+          <input id="{{index}}_street" class="input" type="text" formControlName="street"/>
+        </div>
+
+        <div>
+          <label class="label" for="{{index}}_zip">Zip</label>
+          <div class="errors" *ngIf="control.get('zip')?.invalid && (control.get('zip')?.touched || control.get('zip')?.dirty)">
+            <p class="error" *ngIf="control.get('zip')?.errors?.['required']">Zip is required</p>
+          </div>
+          <input id="{{index}}_zip" class="input" type="text" formControlName="zip"/>
+        </div>
+
+        <div>
+          <label class="label" for="{{index}}_city">City</label>
+          <div class="errors" *ngIf="control.get('city')?.invalid && (control.get('city')?.touched || control.get('city')?.dirty)">
+            <p class="error" *ngIf="control.get('city')?.errors?.['required']">City is required</p>
+          </div>
+          <input id="{{index}}_city" class="input" type="text" formControlName="city"/>
+        </div>
+
+        <div>
+          <label class="label" for="{{index}}_state">State</label>
+          <div class="errors" *ngIf="control.get('state')?.invalid && (control.get('state')?.touched || control.get('state')?.dirty)">
+            <p class="error" *ngIf="control.get('state')?.errors?.['required']">City is required</p>
+          </div>
+          <input id="{{index}}_state" class="input" type="text" formControlName="state"/>
+        </div>
+      </div>
+
+      <button *ngIf="getCountAddresses() > 1" class="address_button" (click)="deleteAddress(index)">Remove</button>
+    </div>
+  </div>
+
+  <input class="submit" type="submit" [disabled]="!userDataForm.valid"/>
+</form>
+

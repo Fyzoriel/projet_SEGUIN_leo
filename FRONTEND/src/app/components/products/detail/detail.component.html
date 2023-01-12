@@ -1,0 +1,32 @@
+<div class="details" *ngIf="product">
+  <div class="image_container">
+    <div class="image_wrapper">
+      <img class="image" [src]="imageSource" alt="product image">
+    </div>
+    <div class="preview">
+      <img class="preview-image" *ngFor="let image of product.images" [src]="image.url" alt="Rip" (mouseover)="selectImage(image.url)">
+    </div>
+  </div>
+  <div class="info">
+    <p class="title">{{product.name}}</p>
+
+    <p>Manufacturer: {{product.manufacturer.name}}</p>
+    <p>Coaster type: {{product.type.name}}</p>
+    <p>Models:
+      <span *ngFor="let model of product.models" class="badge">
+        {{ model.name }}
+      </span>
+    </p>
+
+    <p>Capacity: {{product.capacity}} people/hr</p>
+    <p>Max height: {{product.height}} meters</p>
+    <p>Total length: {{product.length}} meters</p>
+    <p>Max speed: {{product.speed}} km/h</p>
+
+    <p>Price: {{product.price | number:'':'fr'}} €</p>
+    <button *ngIf="storageService.hasRole('CLIENT'); else noCart" class="add" (click)="addToCart()">Add to cart</button>
+    <ng-template #noCart>
+      <p>To add article to cart, use a Client account</p>
+    </ng-template>
+  </div>
+</div>

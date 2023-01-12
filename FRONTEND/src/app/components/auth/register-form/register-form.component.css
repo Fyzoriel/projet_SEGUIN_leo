@@ -1,0 +1,74 @@
+.form_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 80%;
+  min-width: 300px;
+  max-width: 500px;
+
+  padding: 2em;
+  margin-bottom: 20px;
+
+  color: var(--white);
+  background-color: var(--dark);
+
+  border-radius: 10px;
+  border-top: 1px solid var(--secondary);
+
+  box-shadow: 0 10px 15px -10px rgba(0,0,0,0.3);
+}
+
+app-client, app-seller {
+  width: 100%;
+}
+
+.switch {
+  display: flex;
+  position: relative;
+
+  flex-direction: row;
+  align-items: center;
+
+  margin: 0 1em;
+  padding: 0 5px;
+
+  width: 100px;
+  height: 40px;
+
+  border-radius: 40px;
+
+  background-color: var(--tertiary);
+
+  transition: background-color 0.2s ease-in-out;
+}
+
+.switch[data-is-enabled="false"] {
+  background-color: var(--light);
+}
+
+.switch[data-is-enabled="true"] > .slider {
+  left: 5px;
+}
+.switch[data-is-enabled="false"] > .slider {
+  left: 60px;
+}
+
+.slider {
+  position: absolute;
+  height: 35px;
+  width: 35px;
+
+  background-color: var(--white);
+  border-radius: 50%;
+  transition: left 0.2s ease-in-out;
+}
+
+.choice {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin: 1em;
+}
